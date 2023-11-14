@@ -1,0 +1,18 @@
+{
+  "id": "strixhaven-tracking-sheet",
+  "title": "Strixhaven Tracking Sheet",
+  "version": "0.1.0",
+  "compatibility": {
+    "minimum": "11",
+    "verified": "11"
+  },
+  "description": "A sheet for tracking Strixhaven (or other magical universities) student's relationships, extracurriculars, and report cards.",
+  "authors": [
+    {
+      "name": "OtherwiseJunk",
+      "discord": "_dart",
+      "flags": {}
+    }
+  ],
+  "url": "https://github.com/OtherwiseJunk/FoundryVTT-StrixhavenTrackingSheet"
+}
