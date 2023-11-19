@@ -1,12 +1,12 @@
 {
-  "id": "strixhaven-tracking-sheet",
-  "title": "Strixhaven Tracking Sheet",
+  "id": "collegiate-tracking-sheet",
+  "title": "Collegiate Tracking Sheet",
   "version": "0.1.0",
   "compatibility": {
     "minimum": "11",
     "verified": "11"
   },
-  "description": "A sheet for tracking Strixhaven (or other magical universities) student's relationships, extracurriculars, and report cards.",
+  "description": "A sheet for tracking a student's relationships, extracurriculars, and report cards for a magical academy.",
   "authors": [
     {
       "name": "OtherwiseJunk",
@@ -14,5 +14,18 @@
       "flags": {}
     }
   ],
+  "esmodules": [
+    "main.mjs"
+  ],
+  "languages": [{
+    "lang":"en",
+    "name": "English",
+    "path": "lang/en.json"
+  }],
+  "documentTypes": {
+    "Actor":{
+      "trackingSheet": {}
+    }
+  },
   "url": "https://github.com/OtherwiseJunk/FoundryVTT-StrixhavenTrackingSheet"
 }
