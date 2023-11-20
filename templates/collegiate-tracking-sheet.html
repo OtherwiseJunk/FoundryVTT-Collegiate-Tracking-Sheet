@@ -1,3 +1,34 @@
-<div>
-    Sheet To Be Made Later
-</div>
+<form class="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
+
+    {{!-- Sheet Header --}}
+    <header class="sheet-header">
+        {{!-- Header stuff goes here --}}
+        <div class="header-fields">
+            <div class="collegiate-title-container">
+                <h1 class="collegiate-title">{{localize "COLLEGIATE.title"}}</h1>
+            </div>
+            <h3 class="charname"><input class="trackingField" name="system.studentName" type="text"
+                    value="{{system.studentName}}" placeholder="{{localize 'COLLEGIATE.student-name.placeholer'}}"
+                    data-dtype="String" /></h3>
+            <h3 class="charname"><input class="trackingField" name="system.institutionName" type="text"
+                    value="{{system.institutionName}}"
+                    placeholder="{{localize 'COLLEGIATE.institution-name.placeholer'}}" data-dtype="String" />
+            </h3>
+            <h3 class="charname"><input class="trackingField" name="system.areaOfStudy" type="text"
+                    value="{{system.areaOfStudy}}" placeholder="{{localize 'COLLEGIATE.area-of-study.placeholer'}}"
+                    data-dtype="String" /></h3>
+        </div>
+    </header>
+    <section>
+        <ol class="items-list">
+            <li class="item flexrow item-header">
+                <div class="item-image"></div>
+                <div class="item-name">{{localize "COLLEGIATE.relationships.headers.name"}}</div>
+                <div class="item-controls">
+                    <a class="item-control relationship-create" title="Create item" data-type="item"><i
+                            class="fas fa-plus"></i>
+                        {{localize "COLLEGIATE.add-relationship"}}</a>
+                </div>
+            </li>
+    </section>
+</form>

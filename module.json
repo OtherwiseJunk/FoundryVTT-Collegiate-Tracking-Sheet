@@ -22,6 +22,7 @@
     "name": "English",
     "path": "lang/en.json"
   }],
+  "styles": ["styles/collegiate-tracking-sheet.css"],
   "documentTypes": {
     "Actor":{
       "trackingSheet": {}

@@ -1,3 +1,22 @@
 {
-    "TYPES.Actor.collegiate-tracking-sheet.trackingSheet": "Collegiate Tracking Sheet"
+    "TYPES.Actor.collegiate-tracking-sheet.trackingSheet": "Collegiate Tracking Sheet",
+    "COLLEGIATE.title": "School Memories",
+    "COLLEGIATE.relationships.label": "Relationships",
+    "COLLEGIATE.relationships.headers.name": "Name",
+    "COLLEGIATE.relationships.headers.points": "Points",
+    "COLLEGIATE.relationships.headers.relationships": "Relationship",
+    "COLLEGIATE.relationships.headers.inspiration": "Inspiration",
+    "COLLEGIATE.relationships.headers.boon-or-bane": "Boon/Bane",
+    "COLLEGIATE.add-relationship": "Add Relationship",
+    "COLLEGIATE.report-cards.label": "",
+    "COLLEGIATE.report-cards.headers": "",
+    "COLLEGIATE.extracurriculars.label": "",
+    "COLLEGIATE.student-name.label": "",
+    "COLLEGIATE.student-name.placeholer": "Student's Name",
+    "COLLEGIATE.institution-name.label": "",
+    "COLLEGIATE.institution-name.placeholer": "Institution Name",
+    "COLLEGIATE.area-of-study.label": "",
+    "COLLEGIATE.area-of-study.placeholer": "Area of Study",
+    "COLLEGIATE.jobs.label": ""
 }
+

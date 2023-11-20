@@ -1,0 +1,11 @@
+.collegiate-title {
+    font-family: serif;
+    justify-self: center;
+    align-self: center;
+    font-size: xxx-large;
+}
+
+.collegiate-title-container {
+    display: grid;
+    margin-bottom: 5%;
+}

@@ -11,4 +11,29 @@ export class CollegiateTrackingSheet extends ActorSheet {
     get template(){
         return "modules/collegiate-tracking-sheet/templates/collegiate-tracking-sheet.html";
     }
+
+    _prepareCharacterData(actorData) {
+        if (actorData.type !== 'collegiate-tracking-sheet.trackingSheet') return;
+
+        // Make modifications to data here. For example:
+        const systemData = actorData.system;
+      }
+
+    getData(){
+        const context = super.getData();
+
+        context.system = this.actor.system;
+        context.flags = this.actor.flags;
+
+        return context;
+    }
+
+    activateListeners(html) {
+        super.activateListeners(html);
+
+        html.find('.add-relationship').click((event) =>{
+            console.log(event);
+            console.log('Someone clicked the Add-Relationship button');
+        });
+    }
 }
