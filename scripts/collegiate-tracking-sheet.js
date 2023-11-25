@@ -33,8 +33,10 @@ export class CollegiateTrackingSheet extends ActorSheet {
 
         if (!this.options.editable) return;
 
-        html.find('.relationship-create').click((event) =>{
-            this.actor.system.relationships.push(this.createEmptyRelationship())
+        html.find('.relationship-create').click(async (event) =>{
+            const relationships = this.actor.toObject().system.relationships;
+            relationships.push(this.createEmptyRelationship());
+            await this.actor.update({"system.relationships": relationships});
         });
         html.find('.relationship-edit').click((event) =>{
             console.log(event);
