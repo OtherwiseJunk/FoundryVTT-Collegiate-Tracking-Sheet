@@ -4,7 +4,7 @@ export class CollegiateTrackingSheet extends ActorSheet {
             classes: ["boilerplate", "sheet", "actor"],
             template: "modules/collegiate-tracking-sheet/templates/collegiate-tracking-sheet.html",
             width: 800,
-            height: 550
+            height: 750
             // tabs: [{navSelector: "cssClass", contentSelector: "cssClass", initial: "initialTabName" }]
         });
     }
@@ -31,9 +31,58 @@ export class CollegiateTrackingSheet extends ActorSheet {
     activateListeners(html) {
         super.activateListeners(html);
 
-        html.find('.add-relationship').click((event) =>{
-            console.log(event);
-            console.log('Someone clicked the Add-Relationship button');
+        if (!this.options.editable) return;
+
+        html.find('.relationship-create').click((event) =>{
+            this.actor.system.relationships.push(this.createEmptyRelationship())
         });
+        html.find('.relationship-edit').click((event) =>{
+            console.log(event);
+            const relationshipRow = $(event.currentTarget).parents(".relationship-row");
+            const relationshipId = relationshipRow.data("relationshipId");
+            this.displayRelationshipDialog(this.actor.system.relationships[relationshipId]);
+        });
+    }
+
+    displayRelationshipDialog(relationship){
+        if(null === relationship) return;
+        const dialogTemplate = this.generateRelationshipDialogTemplate(relationship);
+
+        new Dialog({
+            title: `Edit Relationship`,
+            content: dialogTemplate,
+            buttons: {
+                deez:{
+                    label: 'test',
+                    callback: () =>{}
+                },
+                nutz:{
+                    label: 'buttons',
+                    callback: () =>{}
+                }
+            }
+        }).render(true);
+    }
+
+    generateRelationshipDialogTemplate(relationship){
+        console.log(`Generating relationship template for item: ${JSON.stringify(relationship)}`);
+        return `
+        <div>
+            <img class="profile-img" ; src="${relationship.image}" data-edit="img"
+        title="{{relationship.name}}" height="120" />
+            <input type="text" value=""/>
+        </div>
+        `;
+    }
+
+    createEmptyRelationship(){
+        return {
+            image: 'https://cacheblasters.nyc3.cdn.digitaloceanspaces.com/CollegiateTrackingSheet/unknown%20person%20image.jpg',
+            name: 'New Relationship',
+            points: 0,
+            relationshipType: '',
+            inspiration: false,
+            relationshipEffect: ''
+        };
     }
 }

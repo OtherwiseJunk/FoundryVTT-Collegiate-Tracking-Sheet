@@ -4,9 +4,6 @@
     <header class="sheet-header">
         {{!-- Header stuff goes here --}}
         <div class="header-fields">
-            <div class="collegiate-title-container">
-                <h1 class="collegiate-title">{{localize "COLLEGIATE.title"}}</h1>
-            </div>
             <h3 class="charname"><input class="trackingField" name="system.studentName" type="text"
                     value="{{system.studentName}}" placeholder="{{localize 'COLLEGIATE.student-name.placeholer'}}"
                     data-dtype="String" /></h3>
@@ -20,15 +17,48 @@
         </div>
     </header>
     <section>
-        <ol class="items-list">
-            <li class="item flexrow item-header">
-                <div class="item-image"></div>
-                <div class="item-name">{{localize "COLLEGIATE.relationships.headers.name"}}</div>
-                <div class="item-controls">
-                    <a class="item-control relationship-create" title="Create item" data-type="item"><i
+        <ol class="relationship-list">
+            <li class="flexrow relationship-headers">
+                <div class="relationship relationship-label">{{localize
+                    "COLLEGIATE.relationships.label"}}</div>
+                <div class="relationship relationship-name">{{localize "COLLEGIATE.relationships.headers.name"}}
+                </div>
+                <div class="relationship relationship-points">{{localize
+                    "COLLEGIATE.relationships.headers.points"}}
+                </div>
+                <div class="relationship relationship-type">{{localize
+                    "COLLEGIATE.relationships.headers.relationship"}}
+                </div>
+                <div class="relationship middle-header relationship-inspiration">{{localize
+                    "COLLEGIATE.relationships.headers.inspiration"}}</div>
+                <div class="relationship relationship-effect">{{localize
+                    "COLLEGIATE.relationships.headers.boon-or-bane"}}
+                </div>
+                <div class="relationship-controls">
+                    <a class="relationship-control relationship-create"
+                        title="{{localize 'COLLEGIATE.create-relationship'}}" data-type="relationship"><i
                             class="fas fa-plus"></i>
-                        {{localize "COLLEGIATE.add-relationship"}}</a>
+                        {{localize "COLLEGIATE.add-element"}}</a>
                 </div>
             </li>
+            {{#each system.relationships as |relationship|}}
+            <li class="relationship-row flexrow" data-relationship-id="relationship.{{@index}}">
+                <div class="relationship-label relationship relationship-image"><img src="{{relationship.image}}"
+                        title="{{relationship.name}}" width="24" height="24" /></div>
+                <h4 class="relationship relationship-name">{{relationship.name}}</h4>
+                <h4 class="relationship relationship-points">{{relationship.points}}</h4>
+                <h4 class="relationship relationship-type">{{relationship.relationshipType}}</h4>
+                <input class="relationship relationship-inspiration" type="checkbox"
+                    value="{{relationship.inspiration}}" />
+                <h4 class="relationship relationship-effect">{{relationship.relationshipEffect}}</h4>
+                <div class="relationship-controls">
+                    <a class="relationship-control relationship-edit" title="Edit Relationship"><i
+                            class="fas fa-edit"></i></a>
+                    <a class="relationship-control relationship-delete" title="Delete Relationship"><i
+                            class="fas fa-trash"></i></a>
+                </div>
+            </li>
+            {{/each}}
+        </ol>
     </section>
 </form>

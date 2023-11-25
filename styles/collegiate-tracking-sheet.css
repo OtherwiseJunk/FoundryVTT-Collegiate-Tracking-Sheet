@@ -1,11 +1,92 @@
 .collegiate-title {
-    font-family: serif;
+    font-family: 'Helvetica', 'Arial', sans-serif;
     justify-self: center;
     align-self: center;
-    font-size: xxx-large;
+    font-size: x-large;
 }
 
 .collegiate-title-container {
     display: grid;
-    margin-bottom: 5%;
+    margin-bottom: 4%;
+}
+
+.relationship-headers {
+    border: 2px groove #eeede0;
+}
+
+.relationship-label {
+    text-align: left;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.relationship {
+    flex: 0 0 80px;
+    font-size: 12px;
+    text-align: center;
+    border-right: 1px solid #c9c7b8;
+    word-break: break-word;
+    white-space: nowrap;
+    overflow: hidden;
+
+    &:last-child {
+        border-right: none;
+    }
+
+    &.relationship-action {
+        flex: 0 0 100px;
+    }
+
+    &.relationship-points {
+        flex: 0 0 40px;
+    }
+
+    &.relationship-type {
+        flex: 0 0 40px;
+    }
+
+    &.relationship-inspiration {
+        flex: 0 0 80px;
+    }
+
+    &.relationship-effect {
+        flex: 0 0 240px;
+    }
+}
+
+.relationship-name {
+    cursor: pointer;
+    flex: 0 0 140px;
+
+    &.rollable:hover .relationship-image {
+        background-image: url("../../icons/svg/d20-grey.svg") !important;
+    }
+
+    &.rollable .relationship-image:hover {
+        background-image: url("../../icons/svg/d20-black.svg") !important;
+    }
+
+    i.attuned {
+        color: Crimson;
+    }
+
+    i.not-attuned {
+        color: Tan;
+    }
+
+    h4 {
+        line-height: 30px;
+    }
+}
+
+.relationship-list {
+    padding: 0 10px;
+}
+
+.relationship-controls {
+    text-align: center;
+}
+
+.relationship-controls a.relationship-create {
+    flex: 0 0 100%;
 }
