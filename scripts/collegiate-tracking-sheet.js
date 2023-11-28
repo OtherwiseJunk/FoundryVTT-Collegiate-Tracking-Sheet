@@ -27,6 +27,10 @@ export class CollegiateTrackingSheet extends ActorSheet {
         return context;
     }
 
+    async updateActorValue(actor, valueName, updatedValue) {
+        await actor.update({ valueName: relationships });
+    }
+
     activateListeners(html) {
         super.activateListeners(html);
 
@@ -35,7 +39,7 @@ export class CollegiateTrackingSheet extends ActorSheet {
         html.find('.COLLEGIATE-relationship-create').click(async (event) => {
             const relationships = this.actor.toObject().system.relationships;
             relationships.push(this.createEmptyRelationship());
-            await this.actor.update({ "system.relationships": relationships });
+            await updateActorValue(this.actor, "system.relationships", relationships);
         });
         html.find('.COLLEGIATE-relationship-edit').click((event) => {
             const relationshipRow = $(event.currentTarget).parents(".COLLEGIATE-relationship-row");
@@ -49,7 +53,7 @@ export class CollegiateTrackingSheet extends ActorSheet {
             const relationshipId = relationshipRow.data("relationshipId").split('.')[1];
             relationships.splice(relationshipId, 1);
 
-            await this.actor.update({ "system.relationships": relationships });
+            await updateActorValue(this.actor, "system.relationships", relationships);
             relationshipRow.slideUp(200, () => this.render(false));
         });
         html.find('.COLLEGIATE-relationship-inspiration').click(async (event) => {
@@ -60,12 +64,12 @@ export class CollegiateTrackingSheet extends ActorSheet {
 
             relationships[relationshipId].inspiration = !relationship.inspiration
 
-            await this.actor.update({ "system.relationships": relationships });
+            await updateActorValue(this.actor, "system.relationships", relationships);
         });
         html.find('.COLLEGIATE-exam-create').click(async (event) => {
             const exams = this.actor.toObject().system.exams;
             exams.push(this.createEmptyExam());
-            await this.actor.update({ "system.exams": exams });
+            await updateActorValue(this.actor, "system.exams", exams);
         });
         html.find('.COLLEGIATE-exam-edit').click((event) => {
             const examRow = $(event.currentTarget).parents(".COLLEGIATE-exam-row");
@@ -79,7 +83,7 @@ export class CollegiateTrackingSheet extends ActorSheet {
             const examId = examRow.data("examId").split('.')[1];
             exams.splice(examId, 1);
 
-            await this.actor.update({ "system.exams": exams });
+            await updateActorValue(this.actor, "system.exams", exams);
             relationshipRow.slideUp(200, () => this.render(false));
         });
         html.find('.COLLEGIATE-exam-use-reroll').click(async (event) => {
@@ -93,7 +97,7 @@ export class CollegiateTrackingSheet extends ActorSheet {
             exam.usedRerolls++;
             exams[examId] = exam;
 
-            await this.actor.update({ "system.exams": exams });
+            await updateActorValue(this.actor, "system.exams", exams);
         });
         html.find('.COLLEGIATE-exam-use-student-dice').click(async (event) => {
             const exams = this.actor.toObject().system.exams;
@@ -106,7 +110,7 @@ export class CollegiateTrackingSheet extends ActorSheet {
             exam.usedDice++;
             exams[examId] = exam;
 
-            await this.actor.update({ "system.exams": exams });
+            await updateActorValue(this.actor, "system.exams", exams);
         });
     }
 
