@@ -27,4 +27,3 @@ jobs:
         prerelease: false
         token: ${{ secrets.GITHUB_TOKEN }}
         artifacts: './module.json,./collegiate-tracking-sheet.zip'
-        tag: latest
