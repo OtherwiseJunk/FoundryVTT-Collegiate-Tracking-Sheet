@@ -16,7 +16,7 @@ jobs:
       shell: bash
       id: set-version
       run: echo "::set-output name=version::$(node ./.github/workflows/set-version.js ${{ github.ref }})"
-    - run: zip -r ./collegiate-tracking-sheet.zip module.json collegiate.js lang/ templates/ scripts/ styes/ schemas/
+    - run: zip -r ./collegiate-tracking-sheet.zip module.json collegiate.mjs lang/ templates/ scripts/ styes/ schemas/
     - name: Create Release
       id: create_latest_release
       uses: ncipollo/release-action@v1
