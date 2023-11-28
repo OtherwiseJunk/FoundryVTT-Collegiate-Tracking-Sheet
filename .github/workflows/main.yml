@@ -2,20 +2,26 @@ name: my-module CI
 
 on: [push]
 
+permissions: write-all
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - run: zip -r ./collegaite-tracking-sheet.zip module.json collegiate.js lang/ templates/ scripts/ styes/ schemas/
+    - name: Update Version
+      shell: bash
+      id: set-version
+      run: echo "::set-output name=version::$(node ./.github/workflows/set-version.js ${{ github.ref }})"
+    - run: zip -r ./collegiate-tracking-sheet.zip module.json collegiate.js lang/ templates/ scripts/ styes/ schemas/
     - name: Create Release
       id: create_latest_release
       uses: ncipollo/release-action@v1
       with:
         allowUpdates: true
-        name: Latest
+        name: Release ${{ steps.set-version.outputs.version }}
         draft: false
         prerelease: false
         token: ${{ secrets.GITHUB_TOKEN }}
-        artifacts: './module.json'
+        artifacts: './module.json,./collegiate-tracking-sheet.zip'
         tag: latest
