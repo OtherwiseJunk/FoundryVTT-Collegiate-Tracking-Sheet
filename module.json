@@ -1,7 +1,7 @@
 {
   "id": "collegiate-tracking-sheet",
   "title": "Collegiate Tracking Sheet",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "compatibility": {
     "minimum": "11",
     "verified": "11"
@@ -15,7 +15,7 @@
     }
   ],
   "esmodules": [
-    "main.mjs"
+    "collegiate.mjs"
   ],
   "languages": [{
     "lang":"en",
