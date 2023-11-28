@@ -7,8 +7,9 @@ export class CollegiateTrackingSheetData extends foundry.abstract.TypeDataModel 
             institutionName: new fields.StringField(),
             areaOfStudy: new fields.StringField(),
             relationships: new fields.ArrayField(new fields.ObjectField()),
-            reportCards: new fields.ArrayField(new fields.ObjectField()),
-            extracurriculars: new fields.ArrayField(new fields.ObjectField()),
+            exams: new fields.ArrayField(new fields.ObjectField()),
+            extracurricularOne: new fields.ObjectField(),
+            extracurricularTwo: new fields.ObjectField(),
             job: new fields.ObjectField(),
         }
     }

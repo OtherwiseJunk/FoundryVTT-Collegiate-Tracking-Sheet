@@ -3,9 +3,8 @@ export class CollegiateTrackingSheet extends ActorSheet {
         return mergeObject(super.defaultOptions, {
             classes: ["boilerplate", "sheet", "actor"],
             template: "modules/collegiate-tracking-sheet/templates/collegiate-tracking-sheet.html",
-            width: 800,
-            height: 750
-            // tabs: [{navSelector: "cssClass", contentSelector: "cssClass", initial: "initialTabName" }]
+            width: 850,
+            height: 900
         });
     }
     get template() {
@@ -33,27 +32,81 @@ export class CollegiateTrackingSheet extends ActorSheet {
 
         if (!this.options.editable) return;
 
-        html.find('.relationship-create').click(async (event) => {
+        html.find('.COLLEGIATE-relationship-create').click(async (event) => {
             const relationships = this.actor.toObject().system.relationships;
             relationships.push(this.createEmptyRelationship());
             await this.actor.update({ "system.relationships": relationships });
-            console.log(this.actor.system.relationships);
         });
-        html.find('.relationship-edit').click((event) => {
-            console.log(event);
-            const relationshipRow = $(event.currentTarget).parents(".relationship-row");
+        html.find('.COLLEGIATE-relationship-edit').click((event) => {
+            const relationshipRow = $(event.currentTarget).parents(".COLLEGIATE-relationship-row");
             const relationshipId = relationshipRow.data("relationshipId").split('.')[1];
             this.displayRelationshipDialog(this.actor, relationshipId);
         });
-        html.find('.relationship-delete').click(async (event) => {
-            let relationships = this.actor.toObject().system.relationships;
+        html.find('.COLLEGIATE-relationship-delete').click(async (event) => {
+            const relationships = this.actor.toObject().system.relationships;
 
-            const relationshipRow = $(event.currentTarget).parents(".relationship-row");
+            const relationshipRow = $(event.currentTarget).parents(".COLLEGIATE-relationship-row");
             const relationshipId = relationshipRow.data("relationshipId").split('.')[1];
             relationships.splice(relationshipId, 1);
 
             await this.actor.update({ "system.relationships": relationships });
             relationshipRow.slideUp(200, () => this.render(false));
+        });
+        html.find('.COLLEGIATE-relationship-inspiration').click(async (event) => {
+            const relationships = this.actor.toObject().system.relationships;
+            const relationshipRow = $(event.currentTarget).parents(".COLLEGIATE-relationship-row");
+            const relationshipId = relationshipRow.data("relationshipId").split('.')[1];
+            const relationship = relationships[relationshipId];
+
+            relationships[relationshipId].inspiration = !relationship.inspiration
+
+            await this.actor.update({ "system.relationships": relationships });
+        });
+        html.find('.COLLEGIATE-exam-create').click(async (event) => {
+            const exams = this.actor.toObject().system.exams;
+            exams.push(this.createEmptyExam());
+            await this.actor.update({ "system.exams": exams });
+        });
+        html.find('.COLLEGIATE-exam-edit').click((event) => {
+            const examRow = $(event.currentTarget).parents(".COLLEGIATE-exam-row");
+            const examId = examRow.data("examId").split('.')[1];
+            this.displayExamDialog(this.actor, examId);
+        });
+        html.find('.COLLEGIATE-exam-delete').click(async (event) => {
+            const exams = this.actor.toObject().system.exams;
+
+            const examRow = $(event.currentTarget).parents(".COLLEGIATE-exam-row");
+            const examId = examRow.data("examId").split('.')[1];
+            exams.splice(examId, 1);
+
+            await this.actor.update({ "system.exams": exams });
+            relationshipRow.slideUp(200, () => this.render(false));
+        });
+        html.find('.COLLEGIATE-exam-use-reroll').click(async (event) => {
+            const exams = this.actor.toObject().system.exams;
+            const examRow = $(event.currentTarget).parents(".COLLEGIATE-exam-row");
+            const examId = examRow.data("examId").split('.')[1];
+            const exam = exams[examId];
+
+            if (exam.earnedRerolls <= exam.usedRerolls) return;
+
+            exam.usedRerolls++;
+            exams[examId] = exam;
+
+            await this.actor.update({ "system.exams": exams });
+        });
+        html.find('.COLLEGIATE-exam-use-student-dice').click(async (event) => {
+            const exams = this.actor.toObject().system.exams;
+            const examRow = $(event.currentTarget).parents(".COLLEGIATE-exam-row");
+            const examId = examRow.data("examId").split('.')[1];
+            const exam = exams[examId];
+
+            if (exam.earnedDice <= exam.usedDice) return;
+
+            exam.usedDice++;
+            exams[examId] = exam;
+
+            await this.actor.update({ "system.exams": exams });
         });
     }
 
@@ -65,22 +118,40 @@ export class CollegiateTrackingSheet extends ActorSheet {
         new Dialog({
             title: `Edit Relationship`,
             content: dialogTemplate,
-            data: relationship,
             buttons: {
                 save: {
                     label: 'Save',
-                    callback: async (html) => {
-                        const formElement = html[0].querySelector('form');
-                        const formData = new FormDataExtended(formElement).object;
-                        const editedRelationship = this.createRelationshipFromEditForm(formData);
-                        relationships[relationshipId] = editedRelationship;
-                        await actor.update({ "system.relationships": relationships });
-                        ui.notifications.warn("Saved Relationship Changes!")
+                    callback: (html) => {
+                        this.updateRelationshipFromDialog(html, relationships, relationshipId, actor);
                     }
                 },
                 discard: {
                     label: 'Discard',
-                    callback: () => { ui.notifications.info("Discarded Relationship Changes!") }
+                    callback: () => { ui.notifications.warn("Discarded Relationship Changes!") }
+                }
+            },
+            default: "discard"
+        }).render(true);
+    }
+
+    displayExamDialog(actor, examId) {
+        const exams = this.actor.toObject().system.exams;
+        const exam = exams[examId];
+        const dialogTemplate = this.generateExamDialogTemplate(exam);
+
+        new Dialog({
+            title: `Edit Exam Information`,
+            content: dialogTemplate,
+            buttons: {
+                save: {
+                    label: 'Save',
+                    callback: (html) => {
+                        this.updateExamFromDialog(html, exams, examId, actor);
+                    }
+                },
+                discard: {
+                    label: 'Discard',
+                    callback: () => { ui.notifications.warn("Discarded Relationship Changes!") }
                 }
             },
             default: "discard"
@@ -88,7 +159,6 @@ export class CollegiateTrackingSheet extends ActorSheet {
     }
 
     generateRelationshipDialogTemplate(relationship) {
-        console.log(`Generating relationship template for item: ${JSON.stringify(relationship)}`);
         return `
         <script>
             var imageElement = document.getElementById("COLLEGIATE.image")
@@ -96,28 +166,67 @@ export class CollegiateTrackingSheet extends ActorSheet {
                 imageElement.src = newUrl;
             }
         </script>
-        <img id="COLLEGIATE.image" class="profile-img" ; src="${relationship.image}" title="{{relationship.name}}" height="120" />
+        <img id="COLLEGIATE.image" class="profile-img" ; src="${relationship.image}" title="${relationship.name}" height="120" />
         <form>
             <div>
-                <label for="COLLEGIATE.name">Name</label>
+                <label for="COLLEGIATE.name">${game.i18n.localize("COLLEGIATE.relationships.headers.name")}</label>
                 <input id="COLLEGIATE.name" name="name" type="text" value="${relationship.name}" data-dtype="String"/>
             </div>
             <div>
-                <label for="COLLEGIATE.imageURL">Image Url</label>
+                <label for="COLLEGIATE.imageURL">${game.i18n.localize("COLLEGIATE.relationships.editForm.imageUrl")}</label>
                 <input id="COLLEGIATE.imageURL" name="img" type="text" value="${relationship.image}" data-dtype="String" onChange="updateImageUrl(this.value)"/>
             </div>
             <div>
-                <label for="COLLEGIATE.points">Points</label>
+                <label for="COLLEGIATE.points">${game.i18n.localize("COLLEGIATE.relationships.headers.points")}</label>
                 <input id="COLLEGIATE.points" name="points" type="text" value="${relationship.points}" data-dtype="Number"/>
             </div>
             <div>
-                <label for="COLLEGIATE.points">Relationship Type</label>
+                <label for="COLLEGIATE.points">${game.i18n.localize("COLLEGIATE.relationships.editForm.relationshipType")}</label>
                 <input id="COLLEGIATE.points" name="type" type="text" value="${relationship.relationshipType}" data-dtype="String"/>
             </div>
             <div>
-                <label for="COLLEGIATE.points">Relationship Effect</label>
+                <label for="COLLEGIATE.points">${game.i18n.localize("COLLEGIATE.relationships.headers.relationshipEffect")}</label>
                 <input id="COLLEGIATE.points" name="effect" type="text" value="${relationship.relationshipEffect}" data-dtype="String"/>
             </div>
+        </form>
+        `;
+    }
+
+    generateExamDialogTemplate(exam) {
+        return `
+        <form>
+            <div>
+                <label for="COLLEGIATE.name">${game.i18n.localize("COLLEGIATE.exams.headers.name")}</label>
+                <input id="COLLEGIATE.name" name="name" type="text" value="${exam.name}" data-dtype="String"/>
+            </div>
+            <div>
+                <label for="COLLEGIATE.year">${game.i18n.localize("COLLEGIATE.exams.headers.year")}</label>
+                <input id="COLLEGIATE.year" name="year" type="text" value="${exam.year}" data-dtype="Number"/>
+            </div>
+            <div>
+                <label for="COLLEGIATE.usedRerolls">${game.i18n.localize("COLLEGIATE.exams.headers.usedRerolls")}</label>
+                <input id="COLLEGIATE.usedRerolls" name="usedRerolls" type="text" value="${exam.usedRerolls}" data-dtype="Number"/>
+            </div>
+            <div>
+                <label for="COLLEGIATE.earnedRerolls">${game.i18n.localize("COLLEGIATE.exams.headers.earnedRerolls")}</label>
+                <input id="COLLEGIATE.earnedRerolls" name="earnedRerolls" type="text" value="${exam.earnedRerolls}" data-dtype="String" onChange="updateImageUrl(this.value)"/>
+            </div>
+            <div>
+                <label for="COLLEGIATE.firstAbility">${game.i18n.localize("COLLEGIATE.exams.headers.firstAbility")}</label>
+                <input id="COLLEGIATE.firstAbility" name="firstAbility" type="text" value="${exam.firstAbility}" data-dtype="String"/>
+            </div>
+            <div>
+                <label for="COLLEGIATE.secondAbility">${game.i18n.localize("COLLEGIATE.exams.headers.secondAbility")}</label>
+                <input id="COLLEGIATE.secondAbility" name="secondAbility" type="text" value="${exam.secondAbility}" data-dtype="String"/>
+            </div>
+            <div>
+                <label for="COLLEGIATE.usedDice">${game.i18n.localize("COLLEGIATE.exams.headers.usedDice")}</label>
+                <input id="COLLEGIATE.usedDice" name="usedDice" type="text" value="${exam.usedDice}" data-dtype="String"/>
+            </div>
+            <div>
+            <label for="COLLEGIATE.earnedDice">${game.i18n.localize("COLLEGIATE.exams.headers.earnedDice")}</label>
+            <input id="COLLEGIATE.earnedDice" name="earnedDice" type="text" value="${exam.earnedDice}" data-dtype="String"/>
+        </div>
         </form>
         `;
     }
@@ -133,14 +242,50 @@ export class CollegiateTrackingSheet extends ActorSheet {
         };
     }
 
-    createRelationshipFromEditForm(formData) {
-        return {
+    async updateRelationshipFromDialog(html, relationships, relationshipId, actor) {
+        const formElement = html[0].querySelector('form');
+        const formData = new FormDataExtended(formElement).object;
+        const editedRelationship = {
             image: formData.img,
             name: formData.name,
             points: formData.points,
             relationshipType: formData.type,
             inspiration: false,
             relationshipEffect: formData.effect
+        };
+        relationships[relationshipId] = editedRelationship;
+        await actor.update({ "system.relationships": relationships });
+        ui.notifications.info("Saved Relationship Changes!");
+    }
+
+    async updateExamFromDialog(html, exams, examId, actor) {
+        const formElement = html[0].querySelector('form');
+        const formData = new FormDataExtended(formElement).object;
+        const editedExam = {
+            name: formData.name,
+            year: 0,
+            earnedRerolls: formData.earnedRerolls,
+            usedRerolls: formData.usedRerolls,
+            firstAbility: formData.firstAbility,
+            secondAbility: formData.secondAbility,
+            earnedDice: formData.earnedDice,
+            usedDice: formData.usedDice,
+        };
+        exams[examId] = editedExam;
+        await actor.update({ "system.exams": exams });
+        ui.notifications.info("Saved Relationship Changes!");
+    }
+
+    createEmptyExam() {
+        return {
+            name: "New Exam",
+            year: 0,
+            earnedRerolls: 0,
+            usedRerolls: 0,
+            firstAbility: "",
+            secondAbility: "",
+            earnedDice: 0,
+            usedDice: 0,
         };
     }
 }

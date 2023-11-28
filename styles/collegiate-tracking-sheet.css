@@ -1,26 +1,14 @@
-.collegiate-title {
-    font-family: 'Helvetica', 'Arial', sans-serif;
-    justify-self: center;
-    align-self: center;
-    font-size: x-large;
-}
-
-.collegiate-title-container {
-    display: grid;
-    margin-bottom: 4%;
-}
-
-.relationship-headers {
+.COLLEGIATE-headers {
     border: 2px groove #eeede0;
 }
 
-.relationship-label {
+.COLLEGIATE-label {
     text-align: left;
     font-size: 14px;
     font-weight: 500;
 }
 
-.relationship {
+.COLLEGIATE-relationship {
     flex: 0 0 80px;
     font-size: 12px;
     text-align: center;
@@ -32,28 +20,49 @@
         border-right: none;
     }
 
-    &.relationship-action {
+    &.COLLEGIATE-relationship-action {
         flex: 0 0 100px;
     }
 
-    &.relationship-points {
+    &.COLLEGIATE-relationship-points {
         flex: 0 0 40px;
     }
 
-    &.relationship-type {
-        flex: 0 0 40px;
-    }
-
-    &.relationship-inspiration {
+    &.COLLEGIATE-relationship-type {
         flex: 0 0 80px;
     }
 
-    &.relationship-effect {
+    &.COLLEGIATE-relationship-inspiration {
+        flex: 0 0 80px;
+    }
+
+    &.COLLEGIATE-relationship-effect {
         flex: 0 0 240px;
     }
 }
 
-.relationship-name {
+.COLLEGIATE-exam {
+    flex: 0 0 80px;
+    font-size: 12px;
+    text-align: center;
+    border-right: 1px solid #c9c7b8;
+    word-break: break-word;
+    overflow: auto;
+
+    &:last-child {
+        border-right: none;
+    }
+
+    &h4 {
+        flex: 0 0 80px;
+    }
+
+    &.relationship-action {
+        flex: 0 0 120px;
+    }
+}
+
+.COLLEGIATE-name {
     cursor: pointer;
     flex: 0 0 140px;
 
@@ -78,14 +87,38 @@
     }
 }
 
-.relationship-list {
+.COLLEGIATE-list {
     padding: 0 10px;
 }
 
-.relationship-controls {
+.COLLEGIATE-controls {
     text-align: center;
 }
 
-.relationship-controls a.relationship-create {
+.COLLEGIATE-controls a.COLLEGIATE-relationship-create {
     flex: 0 0 100%;
+}
+
+.COLLEGIATE-section {
+    outline: 2px solid #c9c7b8;
+}
+
+.COLLEGIATE-subsection {
+    outline: 1px groove;
+    padding: 7px;
+    margin: 7px;
+}
+
+.COLLEGIATE-input {
+    margin: 5px;
+    padding: 2px;
+}
+
+.COLLEGIATE-sheet-image {
+    height: 100px;
+    width: 100px;
+}
+
+.COLLEGIATE-header {
+    margin: 10px;
 }

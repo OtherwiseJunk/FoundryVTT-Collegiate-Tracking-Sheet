@@ -1,64 +1,213 @@
 <form class="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
-
-    {{!-- Sheet Header --}}
-    <header class="sheet-header">
-        {{!-- Header stuff goes here --}}
-        <div class="header-fields">
-            <h3 class="charname"><input class="trackingField" name="system.studentName" type="text"
-                    value="{{system.studentName}}" placeholder="{{localize 'COLLEGIATE.student-name.placeholer'}}"
-                    data-dtype="String" /></h3>
-            <h3 class="charname"><input class="trackingField" name="system.institutionName" type="text"
-                    value="{{system.institutionName}}"
-                    placeholder="{{localize 'COLLEGIATE.institution-name.placeholer'}}" data-dtype="String" />
-            </h3>
-            <h3 class="charname"><input class="trackingField" name="system.areaOfStudy" type="text"
-                    value="{{system.areaOfStudy}}" placeholder="{{localize 'COLLEGIATE.area-of-study.placeholer'}}"
-                    data-dtype="String" /></h3>
+    <header>
+        <div class="header-fields flex">
+            <div class="flexrow">
+                <img class="COLLEGIATE-header COLLEGIATE-sheet-image flex0" ; src="{{actor.img}}" data-edit="img"
+                    name="actor.image" title="{{actor.name}}" />
+                <div class="flexcol COLLEGIATE-header">
+                    <h3 class="charname"><input class="trackingField" name="system.studentName" type="text"
+                            value="{{system.studentName}}"
+                            placeholder="{{localize 'COLLEGIATE.student-name.placeholder'}}" data-dtype="String" /></h3>
+                    <h3 class="charname"><input class="trackingField" name="system.institutionName" type="text"
+                            value="{{system.institutionName}}"
+                            placeholder="{{localize 'COLLEGIATE.institution-name.placeholder'}}" data-dtype="String" />
+                    </h3>
+                    <h3 class="charname"><input class="trackingField" name="system.areaOfStudy" type="text"
+                            value="{{system.areaOfStudy}}"
+                            placeholder="{{localize 'COLLEGIATE.area-of-study.placeholder'}}" data-dtype="String" />
+                    </h3>
+                </div>
+            </div>
         </div>
     </header>
-    <section>
-        <ol class="relationship-list">
-            <li class="flexrow relationship-headers">
-                <div class="relationship relationship-label">{{localize
-                    "COLLEGIATE.relationships.label"}}</div>
-                <div class="relationship relationship-name">{{localize "COLLEGIATE.relationships.headers.name"}}
+    <section class="COLLEGIATE-section">
+        <ol class="COLLEGIATE-list">
+            <li class="flexrow COLLEGIATE-headers">
+                <div class="COLLEGIATE-relationship COLLEGIATE-label">{{localize
+                    "COLLEGIATE.relationships.label"}}s</div>
+                <div class="COLLEGIATE-relationship COLLEGIATE-name">{{localize
+                    "COLLEGIATE.relationships.headers.name"}}
                 </div>
-                <div class="relationship relationship-points">{{localize
+                <div class="COLLEGIATE-relationship COLLEGIATE-relationship-points">{{localize
                     "COLLEGIATE.relationships.headers.points"}}
                 </div>
-                <div class="relationship relationship-type">{{localize
+                <div class="COLLEGIATE-relationship COLLEGIATE-relationship-type">{{localize
                     "COLLEGIATE.relationships.headers.relationship"}}
                 </div>
-                <div class="relationship middle-header relationship-inspiration">{{localize
+                <div class="COLLEGIATE-relationship COLLEGIATE-relationship-inspiration">{{localize
                     "COLLEGIATE.relationships.headers.inspiration"}}</div>
-                <div class="relationship relationship-effect">{{localize
+                <div class="COLLEGIATE-relationship COLLEGIATE-relationship-effect">{{localize
                     "COLLEGIATE.relationships.headers.boon-or-bane"}}
                 </div>
-                <div class="relationship-controls">
-                    <a class="relationship-control relationship-create"
-                        title="{{localize 'COLLEGIATE.create-relationship'}}" data-type="relationship"><i
-                            class="fas fa-plus"></i>
+                <div class="COLLEGIATE-controls">
+                    <a class="COLLEGIATE-control COLLEGIATE-relationship-create"
+                        title="{{localize 'COLLEGIATE.add-element'}} {{localize 'COLLEGIATE.relationships.label'}}"
+                        data-type="relationship"><i class="fas fa-plus"></i>
                         {{localize "COLLEGIATE.add-element"}}</a>
                 </div>
             </li>
             {{#each system.relationships as |relationship|}}
-            <li class="relationship-row flexrow" data-relationship-id="relationship.{{@index}}">
-                <div class="relationship-label relationship relationship-image"><img src="{{relationship.image}}"
-                        title="{{relationship.name}}" width="24" height="24" /></div>
-                <h4 class="relationship relationship-name">{{relationship.name}}</h4>
-                <h4 class="relationship relationship-points">{{relationship.points}}</h4>
-                <h4 class="relationship relationship-type">{{relationship.relationshipType}}</h4>
-                <input class="relationship relationship-inspiration" type="checkbox"
-                    value="{{relationship.inspiration}}" />
-                <h4 class="relationship relationship-effect">{{relationship.relationshipEffect}}</h4>
-                <div class="relationship-controls">
-                    <a class="relationship-control relationship-edit" title="Edit Relationship"><i
+            <li class="COLLEGIATE-relationship-row flexrow" data-relationship-id="relationship.{{@index}}">
+                <div class="COLLEGIATE-label COLLEGIATE-relationship relationship-image"><img
+                        src="{{relationship.image}}" title="{{relationship.name}}" width="36" height="36" /></div>
+                <h4 class="COLLEGIATE-relationship COLLEGIATE-name">{{relationship.name}}</h4>
+                <h4 class="COLLEGIATE-relationship COLLEGIATE-relationship-points">{{relationship.points}}</h4>
+                <h4 class="COLLEGIATE-relationship COLLEGIATE-relationship-type">{{relationship.relationshipType}}</h4>
+                <input class="COLLEGIATE-relationship COLLEGIATE-relationship-inspiration" type="checkbox" {{checked
+                    relationship.inspiration}} data-dtype="boolean" />
+                <h4 class="COLLEGIATE-relationship COLLEGIATE-relationship-effect">{{relationship.relationshipEffect}}
+                </h4>
+                <div class="COLLEGIATE-controls">
+                    <a class="COLLEGIATE-control COLLEGIATE-relationship-edit"
+                        title="{{localize 'COLLEGIATE.edit-element'}} {{localize 'COLLEGIATE.relationships.label'}}"><i
                             class="fas fa-edit"></i></a>
-                    <a class="relationship-control relationship-delete" title="Delete Relationship"><i
+                    <a class="COLLEGIATE-control COLLEGIATE-relationship-delete"
+                        title="{{localize 'COLLEGIATE.delete-element'}} {{localize 'COLLEGIATE.relationships.label'}}"><i
                             class="fas fa-trash"></i></a>
                 </div>
             </li>
             {{/each}}
         </ol>
+    </section>
+    <section class="COLLEGIATE-section">
+        <ol class="COLLEGIATE-list">
+            <li class="flexrow COLLEGIATE-headers">
+                <div class="COLLEGIATE-exam COLLEGIATE-label">{{localize
+                    "COLLEGIATE.exams.label"}}s</div>
+                <div class="COLLEGIATE-exam COLLEGIATE-name">{{localize "COLLEGIATE.exams.headers.name"}}
+                </div>
+                <div class="COLLEGIATE-exam exam-used-rerolls">{{localize
+                    "COLLEGIATE.exams.headers.usedRerolls"}}
+                </div>
+                <div class="COLLEGIATE-exam exam-earned-rerolls">{{localize
+                    "COLLEGIATE.exams.headers.earnedRerolls"}}
+                </div>
+                <div class="COLLEGIATE-exam exam-first-ability">{{localize
+                    "COLLEGIATE.exams.headers.firstAbility"}}
+                </div>
+                <div class="COLLEGIATE-exam exam-second-ability">{{localize
+                    "COLLEGIATE.exams.headers.secondAbility"}}
+                </div>
+                <div class="COLLEGIATE-exam exam-used-dice">{{localize
+                    "COLLEGIATE.exams.headers.usedDice"}}
+                </div>
+                <div class="COLLEGIATE-exam exam-earned-dice">{{localize
+                    "COLLEGIATE.exams.headers.earnedDice"}}</div>
+                <div class="COLLEGIATE-controls">
+                    <a class="COLLEGIATE-control COLLEGIATE-exam-create" title="{{localize 'COLLEGIATE.create-exam'}}"
+                        data-type="COLLEGIATE-exam"><i class="fas fa-plus"></i>
+                        {{localize "COLLEGIATE.add-element"}}</a>
+                </div>
+            </li>
+            {{#each system.exams as |exam|}}
+            <li class="COLLEGIATE-exam-row flexrow" data-exam-id="COLLEGIATE-exam.{{@index}}">
+                <div class="COLLEGIATE-label COLLEGIATE-exam exam-image"><i class="fa-solid fa-book"></i></div>
+                <h4 class="COLLEGIATE-exam COLLEGIATE-name">{{exam.name}}</h4>
+                <h4 class="COLLEGIATE-exam exam-used-rerolls">{{exam.usedRerolls}}</h4>
+                <h4 class="COLLEGIATE-exam exam-earned-rerolls">{{exam.earnedRerolls}}</h4>
+                <h4 class="COLLEGIATE-exam exam-first-ability">{{exam.firstAbility}}</h4>
+                <h4 class="COLLEGIATE-exam exam-second-ability">{{exam.secondAbility}}</h4>
+                <h4 class="COLLEGIATE-exam exam-used-dice">{{exam.usedDice}}</h4>
+                <h4 class="COLLEGIATE-exam exam-earned-dice">{{exam.earnedDice}}</h4>
+                <div class="COLLEGIATE-controls">
+                    <a class="COLLEGIATE-control COLLEGIATE-exam-use-reroll"
+                        title="{{localize 'COLLEGIATE.exams.useReroll'}}"><i class="fas fa-dice-d20"></i></a>
+                    <a class="COLLEGIATE-control COLLEGIATE-exam-use-student-dice"
+                        title="{{localize 'COLLEGIATE.exams.useStudentDice'}}"><i class="fas fa-dice-d4"></i></a>
+                    <a class="COLLEGIATE-control COLLEGIATE-exam-edit"
+                        title="{{localize 'COLLEGIATE.edit-element'}} {{localize 'COLLEGIATE.exams.label'}}"><i
+                            class="fas fa-edit"></i></a>
+                    <a class="COLLEGIATE-control COLLEGIATE-exam-delete"
+                        title="{{localize 'COLLEGIATE.delete-element'}} {{localize 'COLLEGIATE.exams.label'}}"><i
+                            class="fas fa-trash"></i></a>
+                </div>
+            </li>
+            {{/each}}
+        </ol>
+    </section>
+    <section class="COLLEGIATE-section">
+        <div class="COLLEGIATE-extracurricular COLLEGIATE-subsection flex" id="COLLEGIATE-extracurricular-1">
+            <div class="flexrow">
+                <div class="COLLEGIATE-input">
+                    <label class="COLLEGIATE.extracurricular-label" for="COLLEGIATE-extracurricular-1-name">{{localize
+                        "COLLEGIATE.extracurriculars.name.label"}}</label>
+                    <input id="COLLEGIATE-extracurricular-1-name" type="text" name="system.extracurricularOne.name"
+                        value="{{system.extracurricularOne.name}}" />
+                </div>
+                <div class="COLLEGIATE-input COLLEGIATE-controls">
+                    <input id="COLLEGIATE-extracurricular-1-dice-used" type="checkbox"
+                        name="system.extracurricularOne.diceUsed" {{checked system.extracurricularOne.diceUsed}} />
+                    <label class="COLLEGIATE.extracurricular-label"
+                        for="COLLEGIATE-extracurricular-1-dice-used">{{localize
+                        "COLLEGIATE.extracurriculars.diceUsed.label"}}</label>
+                </div>
+            </div>
+            <div class="flexrow">
+                <div class="COLLEGIATE-input">
+                    <label class="COLLEGIATE.extracurricular-label" for="COLLEGIATE-extracurricular-1-skills">{{localize
+                        "COLLEGIATE.extracurriculars.skills.label"}}</label>
+                    <input id="COLLEGIATE-extracurricular-1-skills" type="text" name="system.extracurricularOne.skills"
+                        value="{{system.extracurricularOne.skills}}" />
+                </div>
+                <div class="COLLEGIATE-input">
+                    <label class="COLLEGIATE.extracurricular-label" for="COLLEGIATE-extracurricular-1-member">{{localize
+                        "COLLEGIATE.extracurriculars.peer.label"}}</label>
+                    <input id="COLLEGIATE-extracurricular-1-member" type="text" name="system.extracurricularOne.peer"
+                        value="{{system.extracurricularOne.peer}}" />
+                </div>
+            </div>
+        </div>
+        <div class="COLLEGIATE-extracurricular COLLEGIATE-subsection flex" id="COLLEGIATE-extracurricular-2">
+            <div class="flexrow">
+                <div class="COLLEGIATE-input">
+                    <label class="COLLEGIATE.extracurricular-label" for="COLLEGIATE-extracurricular-2-name">{{localize
+                        "COLLEGIATE.extracurriculars.name.label"}}</label>
+                    <input id="COLLEGIATE-extracurricular-2-name" type="text" name="system.extracurricularTwo.name"
+                        value="{{system.extracurricularTwo.name}}" />
+                </div>
+                <div class="COLLEGIATE-input COLLEGIATE-controls">
+                    <input id="COLLEGIATE-extracurricular-2-dice-used" type="checkbox" {{checked
+                        system.extracurricularTwo.diceUsed}} name="system.extracurricularTwo.diceUsed" />
+                    <label class="COLLEGIATE.extracurricular-label"
+                        for="COLLEGIATE-extracurricular-2-dice-used">{{localize
+                        "COLLEGIATE.extracurriculars.diceUsed.label"}}</label>
+                </div>
+            </div>
+            <div class="flexrow">
+                <div class="COLLEGIATE-input">
+                    <label class="COLLEGIATE.extracurricular-label" for="COLLEGIATE-extracurricular-2-skills">{{localize
+                        "COLLEGIATE.extracurriculars.skills.label"}}</label>
+                    <input id="COLLEGIATE-extracurricular-2-skills" type="text" name="system.extracurricularTwo.skills"
+                        value="{{system.extracurricularTwo.skills}}" />
+                </div>
+                <div class="COLLEGIATE-input">
+                    <label class="COLLEGIATE.extracurricular-label" for="COLLEGIATE-extracurricular-2-member">{{localize
+                        "COLLEGIATE.extracurriculars.peer.label"}}</label>
+                    <input id="COLLEGIATE-extracurricular-2-member" type="text" name="system.extracurricularTwo.peer"
+                        value="{{system.extracurricularTwo.peer}}" />
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="COLLEGIATE-section flex">
+        <div class="COLLEGIATE-subsection">
+            <div class="COLLEGIATE-input">
+                <label class="COLLEGIATE-label" for="COLLEGIATE-job-employer">Employer</label>
+                <input name="system.job.employer" data-dtype="String" value="{{system.job.employer}}"
+                    id="COLLEGIATE-job-employer" type="text" />
+            </div>
+            <div class="flexrow">
+                <div class="COLLEGIATE-input">
+                    <label class="COLLEGIATE-label" for="COLLEGIATE-job">Job</label>
+                    <input name="system.job.title" data-dtype="String" value="{{system.job.title}}" id="COLLEGIATE-job"
+                        type="text" />
+                </div>
+                <div class="COLLEGIATE-input">
+                    <label class="COLLEGIATE-label" for="COLLEGIATE-job-coworker">Coworker</label>
+                    <input name="system.job.coworker" data-dtype="String" value="{{system.job.coworker}}"
+                        id="COLLEGIATE-job-coworker" type="text" />
+                </div>
+            </div>
+        </div>
     </section>
 </form>
