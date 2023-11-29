@@ -112,6 +112,15 @@ export class CollegiateTrackingSheet extends ActorSheet {
 
             await this.updateActorValue(this.actor, "system.exams", exams);
         });
+        html.find('.COLLEGIATE-long-rest').click(async (event) =>{
+            Dialog.confirm({
+                title: "Perform Long Rest?",
+                content: "Would you like to perform a long reset and reset all uses of Student Dice?",
+                yes: () =>{this.performLongRest(this.actor)},
+                no: () =>{},
+                defaultYes: false
+            })
+        });
     }
 
     displayRelationshipDialog(actor, relationshipId) {
@@ -170,7 +179,9 @@ export class CollegiateTrackingSheet extends ActorSheet {
                 imageElement.src = newUrl;
             }
         </script>
-        <img id="COLLEGIATE.image" class="profile-img" ; src="${relationship.image}" title="${relationship.name}" height="120" />
+        <div style="text-align: center">
+            <img id="COLLEGIATE.image" class="profile-img" ; src="${relationship.image}" title="${relationship.name}" height="120" />
+        </div>
         <form>
             <div>
                 <label for="COLLEGIATE.name">${game.i18n.localize("COLLEGIATE.relationships.headers.name")}</label>
@@ -204,8 +215,8 @@ export class CollegiateTrackingSheet extends ActorSheet {
                 <input id="COLLEGIATE.name" name="name" type="text" value="${exam.name}" data-dtype="String"/>
             </div>
             <div>
-                <label for="COLLEGIATE.year">${game.i18n.localize("COLLEGIATE.exams.headers.year")}</label>
-                <input id="COLLEGIATE.year" name="year" type="text" value="${exam.year}" data-dtype="Number"/>
+                <label for="COLLEGIATE.date">${game.i18n.localize("COLLEGIATE.exams.headers.date")}</label>
+                <input id="COLLEGIATE.date" name="date" type="text" value="${exam.date}" data-dtype="String"/>
             </div>
             <div>
                 <label for="COLLEGIATE.usedRerolls">${game.i18n.localize("COLLEGIATE.exams.headers.usedRerolls")}</label>
@@ -267,7 +278,7 @@ export class CollegiateTrackingSheet extends ActorSheet {
         const formData = new FormDataExtended(formElement).object;
         const editedExam = {
             name: formData.name,
-            year: 0,
+            date: formData.date,
             earnedRerolls: formData.earnedRerolls,
             usedRerolls: formData.usedRerolls,
             firstAbility: formData.firstAbility,
@@ -283,7 +294,7 @@ export class CollegiateTrackingSheet extends ActorSheet {
     createEmptyExam() {
         return {
             name: "New Exam",
-            year: 0,
+            date: "",
             earnedRerolls: 0,
             usedRerolls: 0,
             firstAbility: "",
@@ -291,5 +302,14 @@ export class CollegiateTrackingSheet extends ActorSheet {
             earnedDice: 0,
             usedDice: 0,
         };
+    }
+
+    performLongRest(actor){
+        console.log(actor);
+        const exams = actor.toObject().system.exams;
+        exams.map(((exam) => exam.usedDice = 0));
+        this.updateActorValue(actor, "system.extracurricularOne.diceUsed", false);
+        this.updateActorValue(actor, "system.extracurricularTwo.diceUsed", false);
+        this.updateActorValue(actor, "system.exams", exams);
     }
 }

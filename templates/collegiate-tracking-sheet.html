@@ -2,9 +2,15 @@
     <header>
         <div class="header-fields flex">
             <div class="flexrow">
-                <img class="COLLEGIATE-header COLLEGIATE-sheet-image flex0" ; src="{{actor.img}}" data-edit="img"
-                    name="actor.image" title="{{actor.name}}" />
+                <div class="flexcol flex0">
+                    <img class="COLLEGIATE-header COLLEGIATE-sheet-image flex0" ; src="{{actor.img}}" data-edit="img"
+                        name="actor.image" title="{{actor.name}}" />
+                    <button class="COLLEGIATE-long-rest">Long Rest</button>
+                </div>
+
                 <div class="flexcol COLLEGIATE-header">
+                    <h3 class="charname"><input class="trackingField" name="name" type="text" value="{{actor.name}}"
+                            placeholder="{{localize 'COLLEGIATE.student-name.placeholder'}}" data-dtype="String" /></h3>
                     <h3 class="charname"><input class="trackingField" name="system.studentName" type="text"
                             value="{{system.studentName}}"
                             placeholder="{{localize 'COLLEGIATE.student-name.placeholder'}}" data-dtype="String" /></h3>
@@ -76,22 +82,24 @@
                     "COLLEGIATE.exams.label"}}s</div>
                 <div class="COLLEGIATE-exam COLLEGIATE-name">{{localize "COLLEGIATE.exams.headers.name"}}
                 </div>
-                <div class="COLLEGIATE-exam exam-used-rerolls">{{localize
+                <div class="COLLEGIATE-exam COLLEGIATE-date">{{localize "COLLEGIATE.exams.headers.date"}}
+                </div>
+                <div class="COLLEGIATE-exam COLLEGIATE-exam-dice">{{localize
                     "COLLEGIATE.exams.headers.usedRerolls"}}
                 </div>
-                <div class="COLLEGIATE-exam exam-earned-rerolls">{{localize
+                <div class="COLLEGIATE-exam COLLEGIATE-exam-dice">{{localize
                     "COLLEGIATE.exams.headers.earnedRerolls"}}
                 </div>
-                <div class="COLLEGIATE-exam exam-first-ability">{{localize
+                <div class="COLLEGIATE-exam COLLEGIATE-exam-ability">{{localize
                     "COLLEGIATE.exams.headers.firstAbility"}}
                 </div>
-                <div class="COLLEGIATE-exam exam-second-ability">{{localize
+                <div class="COLLEGIATE-exam COLLEGIATE-exam-ability">{{localize
                     "COLLEGIATE.exams.headers.secondAbility"}}
                 </div>
-                <div class="COLLEGIATE-exam exam-used-dice">{{localize
+                <div class="COLLEGIATE-exam COLLEGIATE-exam-dice">{{localize
                     "COLLEGIATE.exams.headers.usedDice"}}
                 </div>
-                <div class="COLLEGIATE-exam exam-earned-dice">{{localize
+                <div class="COLLEGIATE-exam COLLEGIATE-exam-dice">{{localize
                     "COLLEGIATE.exams.headers.earnedDice"}}</div>
                 <div class="COLLEGIATE-controls">
                     <a class="COLLEGIATE-control COLLEGIATE-exam-create" title="{{localize 'COLLEGIATE.create-exam'}}"
@@ -103,12 +111,13 @@
             <li class="COLLEGIATE-exam-row flexrow" data-exam-id="COLLEGIATE-exam.{{@index}}">
                 <div class="COLLEGIATE-label COLLEGIATE-exam exam-image"><i class="fa-solid fa-book"></i></div>
                 <h4 class="COLLEGIATE-exam COLLEGIATE-name">{{exam.name}}</h4>
-                <h4 class="COLLEGIATE-exam exam-used-rerolls">{{exam.usedRerolls}}</h4>
-                <h4 class="COLLEGIATE-exam exam-earned-rerolls">{{exam.earnedRerolls}}</h4>
-                <h4 class="COLLEGIATE-exam exam-first-ability">{{exam.firstAbility}}</h4>
-                <h4 class="COLLEGIATE-exam exam-second-ability">{{exam.secondAbility}}</h4>
-                <h4 class="COLLEGIATE-exam exam-used-dice">{{exam.usedDice}}</h4>
-                <h4 class="COLLEGIATE-exam exam-earned-dice">{{exam.earnedDice}}</h4>
+                <h4 class="COLLEGIATE-exam COLLEGIATE-date">{{exam.date}}</h4>
+                <h4 class="COLLEGIATE-exam COLLEGIATE-exam-dice">{{exam.usedRerolls}}</h4>
+                <h4 class="COLLEGIATE-exam COLLEGIATE-exam-dice">{{exam.earnedRerolls}}</h4>
+                <h4 class="COLLEGIATE-exam COLLEGIATE-exam-ability">{{exam.firstAbility}}</h4>
+                <h4 class="COLLEGIATE-exam COLLEGIATE-exam-ability">{{exam.secondAbility}}</h4>
+                <h4 class="COLLEGIATE-exam COLLEGIATE-exam-dice">{{exam.usedDice}}</h4>
+                <h4 class="COLLEGIATE-exam COLLEGIATE-exam-dice">{{exam.earnedDice}}</h4>
                 <div class="COLLEGIATE-controls">
                     <a class="COLLEGIATE-control COLLEGIATE-exam-use-reroll"
                         title="{{localize 'COLLEGIATE.exams.useReroll'}}"><i class="fas fa-dice-d20"></i></a>

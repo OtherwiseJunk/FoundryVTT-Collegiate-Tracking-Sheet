@@ -57,7 +57,15 @@
         flex: 0 0 80px;
     }
 
-    &.relationship-action {
+    &.COLLEGIATE-exam-dice {
+        flex: 0 0 60px;
+    }
+
+    &.COLLEGIATE-exam-ability {
+        flex: 0 0 70px;
+    }
+
+    &.COLLEGIATE-exam-action {
         flex: 0 0 120px;
     }
 }
@@ -121,4 +129,10 @@
 
 .COLLEGIATE-header {
     margin: 10px;
+}
+
+.COLLEGIATE-long-rest {
+    width: 100px;
+    margin-left: 10px;
+    margin-bottom: 10px;
 }
