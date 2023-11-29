@@ -1,3 +1,9 @@
+## 1.0.3
+
+### Bugfixes
+
+- Fixed issue with Relationship Effect Header string
+
 ## 1.0.2
 
 ### Improvements

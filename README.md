@@ -1,4 +1,4 @@
-# FoundryVTT - Collegiate Tracking Sheet ![Download count image for latest version](https://img.shields.io/github/downloads/OtherwiseJunk/FoundryVTT-Collegiate-Tracking-Sheet/v1.0.1/total.png "Download count for version v1.0.1")
+# FoundryVTT - Collegiate Tracking Sheet ![Download count image for latest version](https://img.shields.io/github/downloads/OtherwiseJunk/FoundryVTT-Collegiate-Tracking-Sheet/v1.0.3/total.png "Download count for version v1.0.3")
 
 A new actor sheet for 5e games, specifically geared for those running a game at a Magical College
 
